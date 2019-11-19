@@ -58,6 +58,6 @@ Run ```form.php```
 
 The cheque PDF will be generated one like below.
 
-![Demo Cheque](cheque_demo.png)
+![Demo Cheque](images/cheque_demo.png)
 
 The cheque can be further committed further to secure file Blockchain systems such as IPFS :money_with_wings:.
