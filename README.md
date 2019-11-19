@@ -1,4 +1,4 @@
-# Blockchain Oriented Cheque Settlement
+# Microservices and Blockchain Oriented Cheque Settlement
 
 ## Main Flask app (Service - 1) 
 
@@ -137,7 +137,7 @@ Moesif automatically detects they are JSON-RPC calls and apply same level of int
 
 Please check the [tutorial blog post related to this repo](https://www.moesif.com/blog/blockchain/ethereum/Tutorial-for-building-Ethereum-Dapp-with-Integrated-Error-Monitoring/).
 
-## OTP Generation and QR Storage on Google Cloud
+## OTP Generation and QR Storage on Google Cloud (Service - 4)
 
 QR Generation takes time to run of Python, hence there as an asynchronous nodeJS service which generates and uploads all the files on Google Cloud Storage. 
 
