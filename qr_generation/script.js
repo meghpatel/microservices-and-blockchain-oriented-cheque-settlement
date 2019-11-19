@@ -5,17 +5,6 @@ const {Storage} = require('@google-cloud/storage');
   // Creates a client
 const storage = new Storage();
 
-// var readMe = fs.readFileSync('readMe.txt', 'utf-8'); 
-
-// var firebaseConfig = {
-//     apiKey: 'AIzaSyAIRwJz5kWIkTi6BJv-ILVfqdx708uoYk8',
-//     authDomain: 'bocs-demo123.firebaseapp.com',
-//     databaseURL: 'https://bocs-demo123.firebaseio.com',
-//     storageBucket: 'bocs-demo123.appspot.com'
-//   };
-
-// firebase.initializeApp(firebaseConfig);
-
 const storage = gcloud.storage({
     projectId: '<projectID>',
     keyFilename: 'service-account-credentials.json',
