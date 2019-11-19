@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title></title>
+</head>
+<body onload="timelimit()">
+<div class="container">
+	<br>
+	<center>
+	<div class="card" style="width: 11rem;">
+		<img src="static/img/qr.png" class="card-img-top" width=150px height=150px>
+		<div class="card-body">
+			<p id="time"></p>
+			<form class="form-group" method="POST" enctype="multipart/form-data">
+				<input type="text" class="form-control" placeholder="Enter TOTP" name="otp" required>
+		</div>
+		<div class="card-footer">
+			<center>
+			<input type="submit" class="btn btn-primary" value="submit">
+		</center>
+		</div>
+			</form>
+	</div>
+</center>
+</div>
+
+</body>
+<script type="text/javascript">
+	function timelimit()
+	{
+		var fiveMinutes = 60 * 1,
+        display = document.getElementById("time");
+    	startTimer(fiveMinutes, display);
+	}
+	function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            display.textContent="Expired";
+            display.style.color="red";
+        }
+    }, 1000);
+}
+
+</script>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title></title>
+</head>
+<body>
+	<div class="jumbotron text-center">
+  <h1>Welcome To BOCS</h1>
+</div>
+
+<div class="container">
+	<a href="http://192.168.29.98:3000">
+	<button type="button" class="btn btn-success">Submit TOTP</button>
+	</a>
+	<a href="/dashboard">
+		<button type="button" class="btn btn-warning">Dashboard</button>
+	</a>
+	<a href="/pending">
+		<button type="button" class="btn btn-warning">Pending Cheques</button>
+	</a>
+	<a href="/login">
+		<button type="button" class="btn btn-primary">Login</button>
+	</a>
+	<a href="/signup">
+		<button type="button" class="btn btn-info">Signup</button>
+	</a>
+	<br>
+	<br>
+	<div class="accordion" id="accordionExample">
+		{% for i in range(trans_id|length) %}
+		<div class="card">
+		  <div class="card-header" id="heading{{i}}">
+		  	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+		    Transaction: {{trans_id[i]}} {{valid[i]}}
+			</button>
+		  </div>
+		  <div id="collapse{{i}}" class="collapse" aria-labelledby="heading{{i}}" data-parent="#accordionExample">
+			  <div class="card-body">
+			    <img align="right" src="static/qr/_{{trans_id[i]}}.png" width=150px height=150px>
+			    <h5 class="card-title">Receiver Name : {{receiver_name[i]}}</h5>
+			    <p class="card-title">Sender Name : {{sender_name[i]}}</p>
+			    <p class="card-text">Amount : {{amount[i]}}/-</p>
+				<p class="card-text">Dated : {{date[i]}}</p>
+				{{valid[i]}}
+				{% if valid[i] %}
+				<p class="card-text">User ID : [{{qr_content[i]}}]</p>
+				<p style="color:green">VALID</p>
+				{% else %}
+				<p style="color:red">PLEASE VALIDATE</p>
+				{% endif %}
+				
+			    <p class="card-text" id="qr_code"></p>
+			    <form class ="form-group" method="POST" enctype="multipart/form-data" action="/pending">
+					
+					<input type="text" name="trans_id" value={{trans_id[i]}} hidden>
+			    	
+			  </div>
+			   <div class="card-footer">
+			   {% if not valid[i] %}
+			   <input type="text" class="form-control mr-sm-2" id="key" placeholder="Decryption Key" name="key" required>
+			   <input type="text" name="but_type" value="scan" hidden>
+			   <input type="text" name="valid-index" value="{{i}}" hidden>
+			   <br>
+			    <input class="btn btn-success" type="submit" value="Scan OR">
+				{% else %}
+				<input type="text" name="but_type" value="sub" hidden>
+				<input type="text" name="key" value="default" hidden>
+				<input type="text" name="valid-index" value="{{i}}" hidden>
+			    <input type="submit" class="btn btn-primary" value="submit">
+				{% endif %}
+				</div>
+			</form>
+	  		</div>
+	  	</div>
+		{% endfor %}
+</div>
+
+</body>
+<script type="text/javascript">
+	function getQR()
+	{
+		var x=document.getElementById("qr_code");
+		x.innerHTML="Public Key : 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0";
+	}
+</script>
+</html>

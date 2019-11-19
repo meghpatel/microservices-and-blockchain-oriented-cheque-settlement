@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title></title>
+</head>
+<body>
+	<div class="jumbotron text-center">
+  <h1>Welcome To BOCS</h1>
+</div>
+
+<div class="container">
+	<div class="accordion" id="accordionExample">
+
+		<div class="card">
+		  <div class="card-header" id="headingOne">
+		  	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+		    Time Stamp : 423123
+			</button>
+		  </div>
+		  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+			  <div class="card-body">
+			    <img align="right" src="static/img/qr.png" width=150px height=150px>
+			    <h5 class="card-title">Receiver AC : 100028987654</h5>
+			    <p class="card-text">Name : Akul Agrawal</p>
+			    <p class="card-text">IFSC : 9018726354</p>
+			    <p class="card-text">Amount : 2000/-</p>
+			    <p class="card-text" id="qr_code"></p>
+			    <form class ="form-group" method="POST" enctype="multipart/form-data">
+			    	<input type="text" class="form-control mr-sm-2" id="key" placeholder="Decryption Key" name="uname" required>
+			  </div>
+			   <div class="card-footer">
+			    <span class="btn btn-success" onclick="getQR()">Scan QR</span>
+			    <input type="submit" class="btn btn-primary" value="submit">
+				</div>
+			</form>
+	  		</div>
+	  	</div>
+	  	<div class="card">
+		  <div class="card-header" id="headingTwo">
+		  	<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		    Time Stamp : 423123
+			</button>
+		  </div>
+		  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+			  <div class="card-body">
+			    <img align="right" src="qr.png" width=150px height=150px>
+			    <h5 class="card-title">Receiver AC : 100028987654</h5>
+			    <p class="card-text">Name : Akul Agrawal</p>
+			    <p class="card-text">IFSC : 9018726354</p>
+			    <p class="card-text">Amount : 2000/-</p>
+			    <p class="card-text" id="qr_code"></p>
+			    <form class ="form-group">
+			    	<input type="text" class="form-control mr-sm-2" id="key" placeholder="Decryption Key" name="uname" required>
+			    </form>
+			   </div>
+			   <div class="card-footer">
+			    <span class="btn btn-success" onclick="getQR()">Scan QR</span>
+			    <a href="#" class="btn btn-primary">Get TOTP</a>
+				</div>
+	  		</div>
+	  	</div>
+	</div>
+
+</body>
+<script type="text/javascript">
+	function getQR()
+	{
+		var x=document.getElementById("qr_code");
+		x.innerHTML="Public Key : 0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0";
+	}
+</script>
+</html>

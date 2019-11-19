@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title></title>
+	<style type="text/css">
+		.form-container{
+			background:#fff;
+			padding :30px;
+			border-radius: 10px;
+			box-shadow:0px 0px 10px 0px #000;
+			position: absolute;
+			top:5vh;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">{{user['uname']}}'s Dashboard</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  			<ul class="navbar-nav mr-auto">
+  				<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Personal Details
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="#">Account Balance : <p style="color:green;">{{user['balance']}}/-</p></a>
+		          <a class="dropdown-item" href="#">Email Id : <p style="color:green;">{{user['email']}}</p></a>
+		          <a class="dropdown-item" href="#">Phone Number : <p style="color:green;">{{user['phone']}}</p></a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="#">Something else here</a>
+		        </div>
+		      </li>
+		      <li class="nav-item dropdown">
+		      	<a class="nav-link" href="#transaction_form">Make Transaction <span class="sr-only">(current)</span></a>
+		      </li>
+		  </ul>
+	</nav>
+	<div class="jumbotron text-center">
+  		<h1>Welcome {{user['uname']}}</h1>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<h4>Cheque Book</h4>
+		</div>
+		<div class="row">
+			<h6>Remaining Cheques : {{available_count}}</h6>
+		</div>
+		<div class="row">
+			<h6>Used Cheques : {{sent_count}}</h6>
+		</div>
+		<br>
+	<div class="accordion" id="accordionExample">
+		{% for i in range(qr_list|length) %}
+		<div class="card">
+		  <div class="card-header" id="{{i}}">
+			{% if qr_list[i][3] == "available" %}		  	
+		  	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+		    Cheque ID : {{qr_list[i][0]}} <img src="static/img/green_1.jpg" width="18px" height="13px">
+			</button>
+			{% else %}
+			<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+		    Cheque ID : {{qr_list[i][0]}} <img src="static/img/red_1.jpg" width="20px" height="20px">
+			</button>
+			{% endif %}
+		  </div>
+		  <div id="collapse{{i}}" class="collapse" aria-labelledby="heading{{i}}" data-parent="#accordionExample">
+			  <div class="card-body">
+			    <img align="right" src="{{qr_img[i]}}" width=150px height=150px>
+
+			    {% if qr_list[i][3] == "available" %}
+			    <h5> Cheque Status : <span style="color:green;">Available </span></h5>
+
+			    <form method="POST" enctype="multipart/form-data" name="maketransaction{{i}}">
+			    	<input type="text" name="qr_id" value="{{qr_list[i][0]}}" hidden>
+			    	<input type="text" name="qr_length" value="{{qr_list|length}}" hidden>
+			    	<input type="text" name="sender_name" value="{{user['uname']}}" hidden>
+			    	<input type="text" name="form_type" value="send_cheque_to_client" hidden>
+
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" name="full_name" placeholder="Receiver's Full Name" required>
+						</div>
+						<div class="col-4">
+				    	<input type="date" class="form-control" aria-describedby="dateHelp" placeholder="date" name="date" min="2019-09-03" required>
+				  		</div>
+					</div>
+					<br>
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" aria-describedby="amountHelp" placeholder="Amount" name="amount" required>
+						</div>
+						<div class="col-4">
+						<input type="text" class="form-control" id="key" placeholder="Decryption Key" name="dec" required>
+						</div>
+				  	</div>
+				  	<br>
+				  	<div class="form-row">
+				  		<div class="col-3">
+				  		<button type="submit" class="btn btn-primary btn-block">Send to Receiver</button>
+				  		</div>
+				  	</div>
+				</form>
+			</div>
+				{% else %}
+				<h5> Cheque Status : <span style="color:red;">Sent </span></h5>
+				<div class="container">
+					<div class="row">
+						<h6>Transaction Id : {{sent_cheque[qr_list[i][0]][0]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Receiver's Name : {{sent_cheque[qr_list[i][0]][3]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Dated : {{sent_cheque[qr_list[i][0]][4]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Amount : <span style="color:red;">{{sent_cheque[qr_list[i][0]][5]}}/-</span></h6>
+					</div>
+				</div>
+			</div>
+				{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+		.form-container{
+			background:#fff;
+			padding :30px;
+			border-radius: 10px;
+			box-shadow:0px 0px 10px 0px #000;
+			position: absolute;
+			top:5vh;
+		}
+	</style>
+	<title></title>
+</head>
+<body>
+	<div class="jumbotron text-center">
+  		<h1>Make Transaction</h1>
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-6 col-md-3">
+				<form class="form-container" method="POST" enctype="multipart/form-data" name="maketransaction">
+					<center><img src="qr.png" width=150px height=150px></center>
+					<div class="form-group">
+						<input type="text" class="form-control" name="firstname" placeholder="Receiver's Full Name">
+					</div>
+				  <div class="form-group">
+				    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Amount" name="amount" required>
+				  </div>
+				  <div class="form-group">
+				    <input type="date" class="form-control" aria-describedby="dateHelp" placeholder="date" name="dates" min="2019-09-03" required>
+				  </div>
+				  <button type="submit" class="btn btn-primary btn-block">Send to Receiver</button>
+					
+				</form>
+			</div>
+		</div>
+		</div>
+</body>
+</html>

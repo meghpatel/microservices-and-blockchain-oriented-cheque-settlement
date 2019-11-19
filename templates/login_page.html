@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title></title>
+	<style type="text/css">
+		.form-container{
+			background:#fff;
+			padding :30px;
+			border-radius: 10px;
+			box-shadow:0px 0px 10px 0px #000;
+			position: absolute;
+			top:5vh;
+		}
+	</style>
+</head>
+<body>
+	<div class="jumbotron text-center">
+  <h1>Welcome To BOCS</h1>
+</div>
+	<div class="container">
+			<a href="http://192.168.29.98:3002">
+				<button type="button" class="btn btn-success">Submit TOTP</button>
+				</a>
+				<a href="/dashboard">
+					<button type="button" class="btn btn-warning">Dashboard</button>
+				</a>
+				<a href="/pending">
+					<button type="button" class="btn btn-warning">Pending Cheques</button>
+				</a>
+				<a href="/login">
+					<button type="button" class="btn btn-primary">Login</button>
+				</a>
+				<a href="/signup">
+					<button type="button" class="btn btn-info">Signup</button>
+				</a>
+				<br>
+				<br>
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-6 col-md-3">
+				<form class="form-container" method="POST" enctype="multipart/form-data" name="loginpage">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Account Name</label>
+				    <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter account name" name="acc_name" required>
+				    <small id="emailHelp" class="form-text text-muted">We'll never share your details with anyone else.</small>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="userpass"required >
+				  </div>
+				  <center>
+				  <small id="emailHelp" class="form-text text-muted">New to BOCS? <a href="signup">SignUp</a></small>
+				</center>
+				<br>
+				  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+				</form>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

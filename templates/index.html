@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title>OTP and Customer details</title>
+</head>
+<body style="background-image: url(static/totp.jpg);background-size:cover">	
+	<div>
+	<img src="{{ qr_image }}" alt="Sample QR Image">
+	</div>
+	<form method="post" action="/customer">
+		<h3>Enter the receiver's account details</h3>
+		<div class="form-row">
+				<div class="col-md-4 mb-3">
+				  <label for="validationTooltip01">Name</label>
+				  <input type="text" class="form-control" id="validationTooltip01" placeholder="First Name" value="Name" name="name" required>
+				</div>
+		</div>
+		<div class="form-row">
+					<div class="col-md-6 mb-3">
+						  <label for="AccNumber">Account Number</label>
+						  <input type="text" class="form-control" name="AccNo" id="AccNumber" placeholder="11 Digit AccNo" required>
+					</div>
+						<div class="col-md-3 mb-3">
+								<label for="IFSC">IFSC</label>
+								<input type="text" class="form-control" name="IFSC" id="IFSC" placeholder="SBI123" required>
+						</div>
+						<div class="col-md-3 mb-3">
+								<label for="Amount">Amount (Rs.)</label>
+								<input type="text" name="Amount" class="form-control" id="Amount" placeholder="1000 Rs." required>
+						</div>
+		</div>
+		<!-- <div class="form-control">
+			<input type="text" name="sender" class="form-control" id="sender" required>
+		</div> -->
+		<button class="btn btn-primary" type="Submit" name="Submit">Register the customers</button>
+	</form>
+	<form method="post" action="/message">
+		<div class="form-group">
+				<label for="decryptedQR">The decrypted QR Key</label>
+				<input type="text" class="form-control" id="decryptedQR" name="name" placeholder="Enter the dec" required>
+		</div>
+		<button class="btn btn-primary" type="Submit" name="Submit">Submit</button>
+	</form>
+	<form method="post" action="/orders">
+		<div class="form-group">
+				<label for="ChequeQueue">Cheque No. Token:-</label>
+				<input type="text" class="form-control" id="ChequeQueue" name="units" placeholder="Cheque to the Queue" required>
+		</div>
+		<button class="btn btn-primary" name="Submit" type="Submit">Add to Queue</button>
+	</form>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

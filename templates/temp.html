@@ -1,0 +1,164 @@
+<div class="container">
+		<div class="row">
+			<h4>Received Cheques</h4>
+		</div>
+		<div class="row">
+			<h6>Pending Cheques : {{available_count}}</h6>
+		</div>
+		<div class="row">
+			<h6>Cleared Cheques : {{sent_count}}</h6>
+		</div>
+		<br>
+	<div class="accordion" id="accordionExample">
+		{% for i in range(received_cheque|length) %}
+		<div class="card">
+		  <div class="card-header" id="rec{{i}}">
+		  	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#reccollapse{{i}}" aria-expanded="false" aria-controls="reccollapse{{i}}">
+		    Transaction Id : {{received_cheque[i][0]}} <img src="static/img/green.png">
+			</button>
+		  </div>
+		  <div id="reccollapse{{i}}" class="collapse" aria-labelledby="recheading{{i}}" data-parent="#recaccordionExample">
+			  <div class="card-body">
+			    <img align="right" src="static/qr/_{{received_cheque[i][1]}}.png" width=150px height=150px>
+			    <h5> Cheque Status : <span style="color:green;">Not Submitted </span></h5>
+			    <form method="POST" enctype="multipart/form-data" name="maketransaction{{i}}">
+			    	<input type="text" name="qr_id" value="{{qr_list[i][0]}}" hidden>
+			    	<input type="text" name="qr_length" value="{{qr_list|length}}" hidden>
+			    	<input type="text" name="sender_name" value="{{user['uname']}}" hidden>
+
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" name="full_name" placeholder="Receiver's Full Name" required>
+						</div>
+						<div class="col-4">
+				    	<input type="date" class="form-control" aria-describedby="dateHelp" placeholder="date" name="date" min="2019-09-03" required>
+				  		</div>
+					</div>
+					<br>
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" aria-describedby="amountHelp" placeholder="Amount" name="amount" required>
+						</div>
+						<div class="col-4">
+						<input type="text" class="form-control" id="key" placeholder="Decryption Key" name="dec" required>
+						</div>
+				  	</div>
+				  	<br>
+				  	<div class="form-row">
+				  		<div class="col-3">
+				  		<button type="submit" class="btn btn-primary btn-block">Send to Receiver</button>
+				  		</div>
+				  	</div>
+				</form>
+				{% else %}
+				<h5> Check Status : <span style="color:red;">Sent </span></h5>
+				<div class="container">
+					<div class="row">
+						<h6>Receiver's Name : {{sent_cheque[i][3]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Dated : {{sent_cheque[i][4]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Amount : <span style="color:red">{{sent_cheque[i][5]}}</span></h6>
+					</div>
+				</div>
+				{% endif %}
+
+	  		</div>
+	  	</div>
+	  	{% endfor %}
+	  </div>
+	</div>
+
+
+
+
+	<div class="accordion" id="accordionExample">
+		{% for i in range(qr_list|length) %}
+		<div class="card">
+		  <div class="card-header" id="{{i}}">
+			{% if qr_list[i][3] == "available" %}		  	
+		  	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+		    Cheque ID : {{qr_list[i][0]}} <img src="static/img/green.png">
+			</button>
+			{% else %}
+			<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+		    Cheque ID : {{qr_list[i][0]}} <img src="static/img/red.png">
+			</button>
+			{% endif %}
+		  </div>
+		  <div id="collapse{{i}}" class="collapse" aria-labelledby="heading{{i}}" data-parent="#accordionExample">
+			  <div class="card-body">
+			    <img align="right" src="{{qr_img[i]}}" width=150px height=150px>
+
+			    {% if qr_list[i][3] == "available" %}
+			    <h5> Cheque Status : <span style="color:green;">Available </span></h5>
+
+			    <form method="POST" enctype="multipart/form-data" name="maketransaction{{i}}">
+			    	<input type="text" name="qr_id" value="{{qr_list[i][0]}}" hidden>
+			    	<input type="text" name="qr_length" value="{{qr_list|length}}" hidden>
+			    	<input type="text" name="sender_name" value="{{user['uname']}}" hidden>
+
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" name="full_name" placeholder="Receiver's Full Name" required>
+						</div>
+						<div class="col-4">
+				    	<input type="date" class="form-control" aria-describedby="dateHelp" placeholder="date" name="date" min="2019-09-03" required>
+				  		</div>
+					</div>
+					<br>
+					<div class="form-row">
+						<div class="col-4">
+						<input type="text" class="form-control" aria-describedby="amountHelp" placeholder="Amount" name="amount" required>
+						</div>
+						<div class="col-4">
+						<input type="text" class="form-control" id="key" placeholder="Decryption Key" name="dec" required>
+						</div>
+				  	</div>
+				  	<br>
+				  	<div class="form-row">
+				  		<div class="col-3">
+				  		<button type="submit" class="btn btn-primary btn-block">Send to Receiver</button>
+				  		</div>
+				  	</div>
+				</form>
+				{% else %}
+				<h5> Cheque Status : <span style="color:red;">Sent </span></h5>
+				<div class="container">
+					<div class="row">
+						<h6>Receiver's Name : {{sent_cheque[qr_list[i][0]][3]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Dated : {{sent_cheque[qr_list[i][0]][4]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Amount : <span style="color:red">{{sent_cheque[qr_list[i][0][5]}}</span></h6>
+					</div>
+				</div>
+				{% endif %}
+
+	  		</div>
+	  	</div>
+	  	{% endfor %}
+	  </div>
+	</div>
+
+
+
+	{% else %}
+				<h5> Cheque Status : <span style="color:red;">Sent </span></h5>
+				<div class="container">
+					<div class="row">
+						<h6>Receiver's Name : {{sent_cheque[qr_list[i][0]][3]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Dated : {{sent_cheque[qr_list[i][0]][4]}}</h6>
+					</div>
+					<div class="row">
+						<h6>Amount : <span style="color:red">{{sent_cheque[qr_list[i][0]][5]}}</span></h6>
+					</div>
+				</div>
+
+(2, 5, 'Akul Agrawal', 'Naman Kabra', '2019-09-04', 1000, 0)
