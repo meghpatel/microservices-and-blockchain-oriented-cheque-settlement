@@ -91,7 +91,7 @@ def pending():
 				u'Amount': a[3],
 				u'IFSC': a[4],
 				})
-				r=requests.get('http://192.168.29.241:3000/url')
+				r=requests.get('http://127.0.0.1:3001/url')
 				data = r.json()
 				otp_gen = data['otp']
 				print (otp_gen)

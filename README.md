@@ -7,8 +7,10 @@
 1. Go to our website [BOCS Demo](http://localhost:5000/signup) and create two accounts in different browser windows.
 2. Now in first account (assume sender), complete the [login](http://localhost:5000/login) and then you will see some empty cheques present in the dashboard, fill the receiver name properly (same as the one signed up).
 3. Enter all the other details which are asked and then click on send to receiver. (for now enter any value in decryption key)
+![Settlement Cheques](images/7.png)
 4. Open the receiver account and there will a cheque shown in the Receiver Cheques section. 
 5. Click on send to bank to send the cheque to bank for processing :moneybag:
+![Sent to bank](images/9.png)
 
 ### Banking
 
@@ -17,9 +19,11 @@ Below are the steps to be followed be the bankers.
 1. Visit the [Banker's Dashboard](http://localhost:5000/dashboard).
 2. Click on Pending Cheques to clear the cheques on queue.
 3. Enter the decryption key as **default** for now. In future, it will be the key scanned by the unique QR code from the cheque.
+![Pending Cheques](images/10.png)
 4. Click on ScanQR button and it will be again redirected to same page after verification.
 5. Now submit the cheque.
 6. Go to the [OTP Page](http://localhost:5000/otp) and enter the otp which comes in the right side of [Dashboard](http://localhost:5000/dashboard) without refreshing the page.
+![Dashboard](images/12.png)
 7. You can see the transaction result in the dashboard.
 8. The transaction will be pushed to Blockchain.
 
@@ -64,7 +68,22 @@ The cheque PDF will be generated one like below.
 
 The cheque can be further committed further to secure file Blockchain systems such as IPFS :money_with_wings:.
 
-## Add the transaction to Blockchain (Service - 3)
+## OTP Generation and QR Storage on Google Cloud (Service - 3)
+
+QR Generation takes time to run of Python, hence there as an asynchronous nodeJS service which generates and uploads all the files on Google Cloud Storage. 
+
+Steps to run this service:
+
+- Go to folder qr_generation
+- `npm install`
+- Create an account on Google cloud and download Application Credentials in file 'key.json'.
+- Change the values about Google cloud in server.js file
+- `node server.js`
+- In flask_app.py, in the pending function, change the url to 'localhost:3001/url' in request() function.
+
+
+
+## Add the transaction to Blockchain (Service - 4)
 
 - Go to folder otp_dapp
 - `npm install -g truffle`
@@ -137,15 +156,10 @@ Moesif automatically detects they are JSON-RPC calls and apply same level of int
 
 Please check the [tutorial blog post related to this repo](https://www.moesif.com/blog/blockchain/ethereum/Tutorial-for-building-Ethereum-Dapp-with-Integrated-Error-Monitoring/).
 
-## OTP Generation and QR Storage on Google Cloud (Service - 4)
+### Some of the snapshots of this service
 
-QR Generation takes time to run of Python, hence there as an asynchronous nodeJS service which generates and uploads all the files on Google Cloud Storage. 
-
-Steps to run this service:
-
-- Go to folder qr_generation
-- `npm install`
-- Create an account on Google cloud and download Application Credentials in file 'key.json'.
-- Change the values about Google cloud in server.js file
-- `node server.js`
-- In flask_app.py, in the pending function, change the url to 'localhost:3001/url' in request() function.
+![1](images/1.png)
+![2](images/2.png)
+![3](images/3.png)
+![4](images/4.png)
+![5](images/5.png)
