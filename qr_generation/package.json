@@ -18,7 +18,7 @@
     "fs": "0.0.1-security",
     "graceful-fs": "^4.2.3",
     "multer": "^1.4.2",
-    "otp-generator": "^1.1.0",
+    "otp-generator": "^3.0.0",
     "qrcode": "^1.4.4"
   }
 }
